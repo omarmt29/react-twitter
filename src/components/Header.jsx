@@ -73,10 +73,10 @@ export const Header = () => {
                             </div>
                             <p className='text-white font-semibold text-sm'>{userdata.username}</p>
                         </div>
-                        <div data-hs-overlay="#hs-unstyled-modal" className='flex gap-2 items-center cursor-pointer'>
+                        <button data-hs-overlay="#hs-unstyled-modal" className='flex gap-2 items-center cursor-pointer'>
                             <FaPlusCircle className='text-2xl text-[#1a8cd8]' />
                             <p className="text-sm font-semibold leading-6  text-white">Post</p>
-                        </div>
+                        </button>
                         <div onClick={e => handlersingout()} className='flex gap-2 items-center cursor-pointer'>
                             <FaDoorOpen className='text-2xl text-white' />
                             <p className="text-sm font-semibold leading-6 me-2 text-white">Logout</p>
