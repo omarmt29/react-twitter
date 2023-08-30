@@ -4,7 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     'node_modules/preline/dist/*.js',
-    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -16,6 +16,6 @@ export default {
   },
   plugins: [
     require('flowbite/plugin'),
-    require('preline/plugin')
+    require('preline/plugin'),
   ],
 }

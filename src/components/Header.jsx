@@ -3,7 +3,7 @@ import { Logo } from '../icons-folder/Logo'
 import { supabase } from '../supabase/supabase'
 import { useNavigate } from "react-router-dom";
 import { FaDoorOpen, FaPlusCircle } from "react-icons/fa";
-
+import { Dialog } from '@headlessui/react'
 
 export const Header = () => {
 
@@ -11,7 +11,10 @@ export const Header = () => {
     const [userdata, setuserdata] = useState({ avatar: '', username: '', id: '' })
     const [post, setpost] = useState({ message: '' })
     const Navigate = useNavigate();
-
+    let [isOpen, setIsOpen] = useState(true)
+    function handleDeactivate() {
+        // ...
+    }
     const handlersingout = async () => {
 
         const { error } = await supabase.auth.signOut()
@@ -22,7 +25,7 @@ export const Header = () => {
     }
     useEffect(() => {
         import('preline');
-      }, []);
+    }, []);
     useEffect(() => {
 
         const checksession = async () => {
@@ -76,7 +79,7 @@ export const Header = () => {
                             </div>
                             <p className='text-white font-semibold text-sm'>{userdata.username}</p>
                         </div>
-                        <button data-hs-overlay="#hs-unstyled-modal" className='flex gap-2 items-center cursor-pointer'>
+                        <button  onClick={() => setIsOpen(true)} className='flex gap-2 items-center cursor-pointer'>
                             <FaPlusCircle className='text-2xl text-[#1a8cd8]' />
                             <p className="text-sm font-semibold leading-6  text-white">Post</p>
                         </button>
@@ -92,34 +95,27 @@ export const Header = () => {
             </nav>
 
 
-            <div id="hs-unstyled-modal" class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
-                <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
-                    <div className="px-4 flex flex-col bg-slate-900  w-full shadow-sm rounded-xl ">
-                        <div className="flex justify-between items-center py-3  ">
+            <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                <Dialog.Panel>
+                    <Dialog.Title>Deactivate account</Dialog.Title>
+                    <Dialog.Description>
+                        This will permanently deactivate your account
+                    </Dialog.Description>
 
-                            <button type="button" className="hs-dropdown-toggle inline-flex  justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-vertically-centered-modal">
-                                <button type="button" class="inline-flex  text-white justify-center items-center gap-2  font-medium  shadow-sm align-middle  transition-all text-base " data-hs-overlay="#hs-unstyled-modal">
-                                    x
-                                </button>
-                              
-                            </button>
-                        </div>
-                        <div className=" overflow-y-auto">
-                            <textarea onChange={e => setpost({ ...post, message: e.target.value })} className='resize-none h-20 border-transparent focus:border-transparent focus:ring-0 bg-transparent border-none focus:border-none outline-none w-full' placeholder='What is happening?' />
-                        </div>
-                        <div className="flex justify-end items-center gap-x-2 py-3 px-4">
+                    <p>
+                        Are you sure you want to deactivate your account? All of your data
+                        will be permanently removed. This action cannot be undone.
+                    </p>
 
-                            <button onClick={e => handlerInsertpost(e)} className="py-2 px-4 inline-flex justify-center items-center gap-2 rounded-3xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
-                                Post
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+                    <button  onClick={() => setIsOpen(false)}>Cancel</button>
+                    <button onClick={handleDeactivate}>Deactivate</button>
+                </Dialog.Panel>
+            </Dialog>
 
 
 
-        </header>
+        </header >
 
     )
 
