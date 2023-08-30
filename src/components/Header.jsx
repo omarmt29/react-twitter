@@ -4,6 +4,7 @@ import { supabase } from '../supabase/supabase'
 import { useNavigate } from "react-router-dom";
 import { FaDoorOpen, FaPlusCircle } from "react-icons/fa";
 
+
 export const Header = () => {
 
     const [logout, setlogout] = useState(false)
@@ -19,7 +20,9 @@ export const Header = () => {
             console.log(error)
         }
     }
-
+    useEffect(() => {
+        import('preline');
+      }, []);
     useEffect(() => {
 
         const checksession = async () => {
